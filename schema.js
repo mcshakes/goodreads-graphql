@@ -20,7 +20,7 @@ const AuthorType = new GraphQLObjectType({
 const AuthorDataType = new GraphQLObjectType({
     name: "AuthorData",
     fields: () => ({
-        fans_count: { type: GraphQLInt },
+        fans_count: { type: GraphQLString },
         books: { type: new GraphQLList(BookType) }
     })
 })
@@ -31,8 +31,12 @@ const BookType = new GraphQLObjectType({
     name: "Book",
     fields: () => ({
         id: { type: GraphQLInt },
+        isbn: { type: GraphQLInt },
         title: { type: GraphQLString },
-        num_pages: { type: GraphQLInt }
+        num_pages: { type: GraphQLInt },
+        description: { type: GraphQLString },
+        published: { type: GraphQLString },
+        publisher: { type: GraphQLString }
     })
 })
 
@@ -53,6 +57,35 @@ const RootQuery = new GraphQLObjectType({
                         let body = JSON.parse(newJSON);
                         return body.GoodreadsResponse.author
                     });
+            }
+        },
+        authorData: {
+            type: AuthorDataType,
+            args: {
+                id: { type: GraphQLID }
+            },
+            resolve(parent, args) {
+                return axios.get(`https://www.goodreads.com/author/show/${args.id}?format=xml&key=${process.env.API_KEY}`)
+                    .then(res => {
+                        return xmlParser.toJson(res.data);
+                    })
+                    .then(newJSON => {
+                        let body = JSON.parse(newJSON);
+                        return {
+                            author: body.GoodreadsResponse.author,
+                            books: body.GoodreadsResponse.author.books.book.map(book => {
+                                return {
+                                    id: book.id.$t,
+                                    isbn: book.isbn,
+                                    title: book.title,
+                                    num_pages: book.num_pages,
+                                    publisher: book.publisher,
+                                    published: book.published,
+                                    description: book.description
+                                }
+                            })
+                        }
+                    })
             }
         }
     }
