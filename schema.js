@@ -98,9 +98,10 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
-    type Author{
-        id: ID!
-        name: String!
+    type Author {
+        id: ID
+        name: String
+        link: String
     }
 
     input AuthorInput {
@@ -109,7 +110,7 @@ const typeDefs = gql`
 
     type Query {
         book: Book!
-        author(input: AuthorInput!): Author!
+        author(name: String): Author!
     }
 
     type Book {
