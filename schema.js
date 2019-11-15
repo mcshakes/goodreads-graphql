@@ -1,64 +1,3 @@
-// const axios = require("axios");
-// const xmlParser = require("xml2json");
-
-// const { GraphQLObjectType, GraphQLID, GraphQLInt, GraphQLList, GraphQLString, GraphQLSchema } = require("graphql");
-
-// // Author by name
-// const AuthorType = new GraphQLObjectType({
-//     name: "Author",
-//     fields: () => ({
-//         id: {
-//             type: GraphQLID
-//         },
-//         name: {
-//             type: GraphQLString
-//         }
-//     })
-// })
-
-// // Full Author Data and Works
-// const AuthorDataType = new GraphQLObjectType({
-//     name: "AuthorData",
-//     fields: () => ({
-//         fans_count: { type: GraphQLString },
-//         books: { type: new GraphQLList(BookType) }
-//     })
-// })
-
-// // Book Type
-
-// const BookType = new GraphQLObjectType({
-//     name: "Book",
-//     fields: () => ({
-//         id: { type: GraphQLInt },
-//         isbn: { type: GraphQLInt },
-//         title: { type: GraphQLString },
-//         num_pages: { type: GraphQLInt },
-//         description: { type: GraphQLString },
-//         published: { type: GraphQLString },
-//         publisher: { type: GraphQLString }
-//     })
-// })
-
-// const RootQuery = new GraphQLObjectType({
-//     name: "RootQueryType",
-//     fields: {
-//         author: {
-//             type: AuthorType,
-//             args: {
-//                 name: { type: GraphQLString }
-//             },
-//             resolve(parent, args) {
-//                 return axios.get(`https://www.goodreads.com/api/author_url/${args.name}?key=${process.env.API_KEY}`)
-//                     .then(res => {
-//                         return xmlParser.toJson(res.data);
-//                     })
-//                     .then(newJSON => {
-//                         let body = JSON.parse(newJSON);
-//                         return body.GoodreadsResponse.author
-//                     });
-//             }
-//         },
 //         authorData: {
 //             type: AuthorDataType,
 //             args: {
@@ -91,10 +30,6 @@
 //     }
 // });
 
-// module.exports = new GraphQLSchema({
-//     query: RootQuery
-// })
-
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
@@ -108,16 +43,26 @@ const typeDefs = gql`
         name: String!
     }
 
+    type NullType {
+        nil: Boolean!
+    }
+
+    type AuthorData {
+        author: Author!
+        books: [Book]
+    }
+
     type Query {
         book: Book!
         author(name: String): Author!
+        authorData(id: ID): AuthorData!
     }
 
     type Book {
         id: ID!
-        isbn: Int
+        isbn: String
         title: String
-        num_pages: Int
+        num_pages: String
         description: String
         published: String
         publisher: String
