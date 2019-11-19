@@ -28,7 +28,7 @@ class GoodReadsAPI extends RESTDataSource {
         let newJSON = JSON.parse(resp);
 
         const theAuthor = newJSON.GoodreadsResponse.author;
-
+        const about = newJSON.GoodreadsResponse.author.about;
         const initBookArr = newJSON.GoodreadsResponse.author.books.book
 
         const finalArr = initBookArr.map(book => {
@@ -37,6 +37,10 @@ class GoodReadsAPI extends RESTDataSource {
 
         return {
             author: theAuthor,
+            about: about,
+            influences: newJSON.GoodreadsResponse.author.influences,
+            hometown: newJSON.GoodreadsResponse.author.hometown,
+            works_count: newJSON.GoodreadsResponse.author.works_count,
             books: finalArr.map(book => {
                 return {
                     id: book.id.$t,
