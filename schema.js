@@ -11,10 +11,6 @@ const typeDefs = gql`
         name: String!
     }
 
-    type NullType {
-        nil: Boolean!
-    }
-
     type AuthorData {
         author: Author!
         books: [Book]
@@ -28,6 +24,8 @@ const typeDefs = gql`
         book: Book!
         author(name: String): Author!
         authorData(id: ID): AuthorData!
+        bookData(id: ID): Book!
+
     }
 
     type Book {
@@ -38,6 +36,7 @@ const typeDefs = gql`
         description: String
         published: String
         publisher: String
+        average_rating: String
     }
 `
 

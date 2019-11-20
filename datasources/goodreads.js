@@ -55,6 +55,16 @@ class GoodReadsAPI extends RESTDataSource {
         }
     };
 
+    // THis says get Reviews, but it's not a Reviews. It's basically a SHOW action for the book
+    async getInfoForBook(inputObject) {
+        let xmlResp = await this.get(this.baseURL + `book/show/${inputObject.bookId}?format=xml&key=${process.env.API_KEY}`)
+
+        let resp = await xmlParser.toJson(xmlResp);
+        let newJSON = JSON.parse(resp);
+        // console.log(newJSON)
+        return newJSON.GoodreadsResponse.book
+    }
+
 
 }
 
