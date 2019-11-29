@@ -1,15 +1,19 @@
-const express = require("express");
 require('dotenv').config()
-const graphqlHTTP = require("express-graphql");
-const schema = require("./schema");
+const { ApolloServer, gql } = require('apollo-server');
+const typeDefs = require('./schema');
+const resolvers = require('./resolvers');
 
-const app = express();
+const GoodReadsAPI = require('./datasources/goodreads');
 
-app.use("/graphql", graphqlHTTP({
-    schema,
-    graphiql: true
-}));
 
-const PORT = process.env.PORT || 5000;
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    dataSources: () => ({
+        goodreadsAPI: new GoodReadsAPI()
+    })
+});
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+server.listen().then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`);
+});
