@@ -37,6 +37,11 @@ const typeDefs = gql`
         published: String
         publisher: String
         average_rating: String
+        ratings_count: String
+        text_reviews_count: String
+        is_ebook: Boolean
+        language_code: String
+        similar_books: [Book]
     }
 `
 
