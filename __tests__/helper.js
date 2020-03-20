@@ -1,5 +1,5 @@
 const { ApolloServer } = require("apollo-server");
-const { createTestClient } = require("apollo-server-test")
+const { createTestClient } = require("apollo-server-testing")
 const typeDefs = require('../schema');
 const resolvers = require('../resolvers');
 
