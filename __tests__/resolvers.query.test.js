@@ -22,3 +22,58 @@ describe("[Query.author]", () => {
         // expect(getAuthorByName).toBeCalledWith({ })
     })
 })
+
+describe("[Query.authorData]", () => {
+    const mockContext = {
+        dataSources: {
+            goodreadsAPI: { getAuthorData: jest.fn() }
+        }
+    };
+
+    it("looks up full author data based on ID", async () => {
+        const getAuthorDataByID = mockContext.dataSources.goodreadsAPI.getAuthorData;
+
+        getAuthorDataByID.mockReturnValueOnce({
+            author: {
+                name: "Bilbo Blaggins"
+            },
+            hometown: "Somewhere, Alabama",
+            books: [
+                {
+                    id: "1234",
+                    isbn: "04563112",
+                    title: "A Ring Too Far"
+                },
+                {
+                    id: "1234",
+                    isbn: "04563112",
+                    title: "A Ring Too Far"
+                }
+
+            ]
+        })
+
+        const res = await resolvers.Query.authorData(null, { id: 3389 }, mockContext);
+
+        let responseObj = {
+            author: {
+                name: "Bilbo Blaggins"
+            },
+            hometown: "Somewhere, Alabama",
+            books: [
+                {
+                    id: "1234",
+                    isbn: "04563112",
+                    title: "A Ring Too Far"
+                },
+                {
+                    id: "1234",
+                    isbn: "04563112",
+                    title: "A Ring Too Far"
+                }
+
+            ]
+        }
+        expect(res).toEqual(responseObj);
+    })
+})
