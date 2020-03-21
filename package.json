@@ -1,5 +1,10 @@
 {
   "name": "goodreads_wrap",
+  "jest": {
+    "testMatch": [
+      "**/?(*.)+(test).[jt]s?(x)"
+    ]
+  },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

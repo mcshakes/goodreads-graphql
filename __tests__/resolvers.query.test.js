@@ -11,11 +11,13 @@ describe("[Query.author]", () => {
         const getAuthorByName = mockContext.dataSources.goodreadsAPI.getAuthor;
 
         getAuthorByName.mockReturnValueOnce({
-            name: "Tom Clancy"
+            name: "Tom Clancy",
+            id: 23,
+            link: "https://www.tom-clancy.com"
         });
 
         const res = await resolvers.Query.author(null, { name: "Tom Clancy" }, mockContext);
-        expect(res).toEqual({ name: "Tom Clancy" });
+        expect(res).toEqual({ id: 23, name: "Tom Clancy", link: "https://www.tom-clancy.com" });
 
         // expect(getAuthorByName).toBeCalledWith({ })
     })
