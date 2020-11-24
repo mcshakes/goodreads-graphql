@@ -130,7 +130,7 @@ class GoodReadsAPI extends RESTDataSource {
     async getGroupById(inputObject) {
         let xmlResp = await this.get(this.baseURL + `group/show/${inputObject.groupId}.xml?key=${process.env.API_KEY}`)
         let resp = await xmlParser.toJson(xmlResp);
-        let newJSON = JSON.parse(resp);
+        let newJSON = JSON.parse(resp, (k, v) => v === "true" ? true : v === "false" ? false : v);
         let groupObj = newJSON.GoodreadsResponse.group
         return {
             id: groupObj.id,
@@ -141,8 +141,7 @@ class GoodReadsAPI extends RESTDataSource {
             last_activity_at: groupObj.last_activity_at,
             display_folder_count: groupObj.display_folder_count,
             display_topics_per_folder: groupObj.display_topics_per_folder,
-            bookshelves_public_flag: 
-            groupObj.bookshelves_public_flag,
+            bookshelves_public_flag: groupObj.bookshelves_public_flag,
             add_books_flag: groupObj.add_books_flag,
             add_events_flag: groupObj.add_events_flag,
             polls_flag: groupObj.polls_flag,
