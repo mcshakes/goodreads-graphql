@@ -25,6 +25,7 @@ const typeDefs = gql`
         author(name: String): Author!
         authorData(id: ID): AuthorData!
         bookData(id: ID): Book!
+        getGroupByName(query: String): Group!
     }
 
     type Book {
@@ -41,6 +42,16 @@ const typeDefs = gql`
         is_ebook: Boolean
         language_code: String
         similar_books: [Book]
+    }
+
+    type Group {
+        id: ID!,
+        title: String,
+        access: String,
+        users_count: String,
+        image_url: String,
+        small_image_url: String,
+        last_activity_at: String
     }
 `
 

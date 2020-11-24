@@ -4,6 +4,9 @@ module.exports = {
 
         authorData: (_, { id }, { dataSources }) => dataSources.goodreadsAPI.getAuthorData({ authorId: id }),
 
-        bookData: (_, { id }, { dataSources }) => dataSources.goodreadsAPI.getInfoForBook({ bookId: id })
+        bookData: (_, { id }, { dataSources }) => dataSources.goodreadsAPI.getInfoForBook({ bookId: id }),
+
+        getGroupByName: (_, { query }, { dataSources }) => dataSources.goodreadsAPI.getGroupByName({ query })
+
     }
 };

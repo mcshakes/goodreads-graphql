@@ -87,9 +87,48 @@ class GoodReadsAPI extends RESTDataSource {
         }
     }
 
-    //  Books a user has read
-    // the users in reading lists maybe
+    //  Books a User has Read
 
+    async getBooksReadByUser(nameObject) {
+
+        return this.get(this.baseURL + `api/author_url/${nameObject.name}?key=${process.env.API_KEY}`)
+            .then(res => {
+                return xmlParser.toJson(res);
+            })
+            .then(newJSON => {
+                let body = JSON.parse(newJSON);
+                return body.GoodreadsResponse.author
+            });
+    }
+
+    // Find all group members according to search query string
+    //  Query looks like goodreads-librarians-group
+    // Returns a list of groups according to the query
+    async getGroupByName(inputObject) {
+        let queryString = inputObject.query;
+
+        let formattedQuery = queryString.split(" ").join("-")
+
+        return this.get(this.baseURL + `group/search.xml?key=${process.env.API_KEY}&q=${formattedQuery}`)
+            .then(res => {
+                return xmlParser.toJson(res);
+            })
+            .then(newJSON => {
+                let body = JSON.parse(newJSON);
+                // console.log("FUCK", body.GoodreadsResponse.groups.list)
+
+                const groupArray = body.GoodreadsResponse.groups.list.group.map(book => {
+                    console.log(Object.entries(book))
+                    // return _.mapValues(book, val => val.nil ? null : val)
+                })
+
+                return {
+                    total: body.GoodreadsResponse.groups.list.total,
+                    groups: groupArray
+                    
+                }
+            });
+    }
 
 }
 
