@@ -87,23 +87,12 @@ class GoodReadsAPI extends RESTDataSource {
         }
     }
 
-    //  Books a User has Read
-
-    async getBooksReadByUser(nameObject) {
-
-        return this.get(this.baseURL + `api/author_url/${nameObject.name}?key=${process.env.API_KEY}`)
-            .then(res => {
-                return xmlParser.toJson(res);
-            })
-            .then(newJSON => {
-                let body = JSON.parse(newJSON);
-                return body.GoodreadsResponse.author
-            });
-    }
+    //  Books a User has Read TODO
+    
 
     // Returns a list of Groups according to search query
     // Search Query must look like: goodreads-librarians-group
-    
+
     async getGroupsByName(inputObject) {
         let queryString = inputObject.query;
 
@@ -136,6 +125,39 @@ class GoodReadsAPI extends RESTDataSource {
                     
                 }
             });
+    }
+
+    async getGroupById(inputObject) {
+        let xmlResp = await this.get(this.baseURL + `group/show/${inputObject.groupId}.xml?key=${process.env.API_KEY}`)
+        let resp = await xmlParser.toJson(xmlResp);
+        let newJSON = JSON.parse(resp);
+        let groupObj = newJSON.GoodreadsResponse.group
+        return {
+            id: groupObj.id,
+            title: groupObj.title,
+            description: groupObj.description,
+            access: groupObj.access,
+            location: groupObj.location,
+            last_activity_at: groupObj.last_activity_at,
+            display_folder_count: groupObj.display_folder_count,
+            display_topics_per_folder: groupObj.display_topics_per_folder,
+            bookshelves_public_flag: 
+            groupObj.bookshelves_public_flag,
+            add_books_flag: groupObj.add_books_flag,
+            add_events_flag: groupObj.add_events_flag,
+            polls_flag: groupObj.polls_flag,
+            discussion_public_flag: groupObj.discussion_public_flag,
+            real_world_flag: groupObj.real_world_flag,
+            accepting_new_members_flag: groupObj.accepting_new_members_flag,
+            category: groupObj.category,
+            subcategory: groupObj.subcategory,
+            rules: groupObj.rules,
+            link: groupObj.link,
+            image_url: groupObj.image_url,
+            group_users_count: groupObj.group_users_count
+
+        }
+        
     }
 
 }

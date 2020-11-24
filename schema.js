@@ -31,6 +31,7 @@ const typeDefs = gql`
         authorData(id: ID): AuthorData!
         bookData(id: ID): Book!
         groupsByName(query: String): Groups!
+        groupData(id: ID): GroupData!
     }
 
     type Book {
@@ -57,6 +58,29 @@ const typeDefs = gql`
         image_url: String,
         small_image_url: String,
         last_activity_at: String
+    }
+
+    type GroupData {
+        id: ID,
+        title: String,
+        description: String,
+        display_topics_per_folder: String,
+        bookshelves_public_flag: Boolean,
+        add_books_flag: Boolean,
+        add_events_flag: String,
+        polls_flag: String,
+        discussion_public_flag: String,
+        real_world_flag: String,
+        accepting_new_members_flag: String,
+        category: String,
+        subcategory: String,
+        rules: String,
+        link: String,
+        image_url: String,
+        group_users_count: String,
+        access: String,
+        last_activity_at: String,
+        display_folder_count: String
     }
 `
 
