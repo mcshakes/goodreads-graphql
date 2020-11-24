@@ -20,12 +20,17 @@ const typeDefs = gql`
         works_count: String
     }
 
+    type Groups {
+        total: String,
+        groups: [Group!]
+    }
+
     type Query {
         book: Book!
         author(name: String): Author!
         authorData(id: ID): AuthorData!
         bookData(id: ID): Book!
-        getGroupByName(query: String): Group!
+        groupsByName(query: String): Groups!
     }
 
     type Book {
@@ -45,7 +50,7 @@ const typeDefs = gql`
     }
 
     type Group {
-        id: ID!,
+        id: ID,
         title: String,
         access: String,
         users_count: String,

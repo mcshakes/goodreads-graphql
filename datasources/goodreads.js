@@ -101,10 +101,10 @@ class GoodReadsAPI extends RESTDataSource {
             });
     }
 
-    // Find all group members according to search query string
-    //  Query looks like goodreads-librarians-group
-    // Returns a list of groups according to the query
-    async getGroupByName(inputObject) {
+    // Returns a list of Groups according to search query
+    // Search Query must look like: goodreads-librarians-group
+    
+    async getGroupsByName(inputObject) {
         let queryString = inputObject.query;
 
         let formattedQuery = queryString.split(" ").join("-")
@@ -115,16 +115,24 @@ class GoodReadsAPI extends RESTDataSource {
             })
             .then(newJSON => {
                 let body = JSON.parse(newJSON);
-                // console.log("FUCK", body.GoodreadsResponse.groups.list)
 
-                const groupArray = body.GoodreadsResponse.groups.list.group.map(book => {
-                    console.log(Object.entries(book))
-                    // return _.mapValues(book, val => val.nil ? null : val)
+                const groupArray = body.GoodreadsResponse.groups.list.group.map(group => {
+                    return _.mapValues(group, val => val.nil ? null : val)
                 })
 
                 return {
                     total: body.GoodreadsResponse.groups.list.total,
-                    groups: groupArray
+                    groups: groupArray.map(group => {
+                        return {
+                            id: group.id,
+                            title: group.title,
+                            access: group.access,
+                            users_count: group.users_count,
+                            image_url: group.image_url,
+                            small_image_url: group.small_image_url,
+                            last_activity_at: group.last_activity_at
+                        }
+                    })
                     
                 }
             });

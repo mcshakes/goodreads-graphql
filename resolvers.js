@@ -6,7 +6,7 @@ module.exports = {
 
         bookData: (_, { id }, { dataSources }) => dataSources.goodreadsAPI.getInfoForBook({ bookId: id }),
 
-        getGroupByName: (_, { query }, { dataSources }) => dataSources.goodreadsAPI.getGroupByName({ query })
+        groupsByName: (_, { query }, { dataSources }) => dataSources.goodreadsAPI.getGroupsByName({ query })
 
     }
 };
