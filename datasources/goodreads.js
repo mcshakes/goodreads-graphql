@@ -87,6 +87,9 @@ class GoodReadsAPI extends RESTDataSource {
         }
     }
 
+    //  Books a user has read
+    // the users in reading lists maybe
+
 
 }
 
