@@ -60,6 +60,22 @@ const typeDefs = gql`
         last_activity_at: String
     }
 
+    type Folder {
+        id: ID,
+        name: String,
+        items_count: String,
+        sub_items_count: String,
+        updated_at: String
+    }
+
+    type GroupBook {
+        id: ID!,
+        updated_at: String,
+        started_reading_at: String,
+        finish_reading_at: String,
+        book: 
+    }
+
     type GroupData {
         id: ID,
         title: String,
@@ -80,7 +96,9 @@ const typeDefs = gql`
         group_users_count: String,
         access: String,
         last_activity_at: String,
-        display_folder_count: String
+        display_folder_count: String,
+        folders: [Folder],
+        currently_reading: GroupBook
     }
 `
 

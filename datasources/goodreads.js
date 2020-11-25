@@ -132,6 +132,14 @@ class GoodReadsAPI extends RESTDataSource {
         let resp = await xmlParser.toJson(xmlResp);
         let newJSON = JSON.parse(resp, (k, v) => v === "true" ? true : v === "false" ? false : v);
         let groupObj = newJSON.GoodreadsResponse.group
+
+        console.log("")
+        console.log("CURENT READING ", groupObj.currently_reading.group_book)
+        console.log("")
+        console.log("GROUP BOOK ", groupObj.currently_reading.group_book.book)
+        console.log("")
+
+
         return {
             id: groupObj.id,
             title: groupObj.title,
@@ -153,8 +161,19 @@ class GoodReadsAPI extends RESTDataSource {
             rules: groupObj.rules,
             link: groupObj.link,
             image_url: groupObj.image_url,
-            group_users_count: groupObj.group_users_count
+            group_users_count: groupObj.group_users_count,
 
+            folders: groupObj.folders.folder.map(folder => {
+                return {
+                    id: folder.id,
+                    name: folder.name,
+                    items_count: folder.items_count,
+                    sub_items_count: folder.sub_items_count,
+                    updated_at: folder.updated_at
+                }
+            }),
+
+            
         }
         
     }
