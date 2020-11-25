@@ -133,13 +133,6 @@ class GoodReadsAPI extends RESTDataSource {
         let newJSON = JSON.parse(resp, (k, v) => v === "true" ? true : v === "false" ? false : v);
         let groupObj = newJSON.GoodreadsResponse.group
 
-        console.log("")
-        // console.log("CURENT READING ", groupObj.currently_reading.group_book)
-        // console.log("")
-        // console.log("GROUP BOOK ", groupObj.currently_reading.group_book.book)
-        console.log("")
-
-
         return {
             id: groupObj.id,
             title: groupObj.title,
@@ -174,7 +167,7 @@ class GoodReadsAPI extends RESTDataSource {
             }),
 
             currently_reading: groupObj.currently_reading.group_book.map(g_book => {
-                console.log(g_book.book)
+
                 return {
                     id: g_book.id.$t,
                     updated_at: g_book.updated_at.$t,
@@ -189,7 +182,6 @@ class GoodReadsAPI extends RESTDataSource {
                             name: g_book.book.author.name,
                             user_id: g_book.book.author.user_id.$t
                         }
-
                     }
                 }
             })

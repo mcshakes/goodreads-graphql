@@ -14,6 +14,9 @@ Feel free to use it, fork it, or play with it alongside your Goodreads REST quer
 3) **bookData** calls `https://www.goodreads.com/book/show/{book_id}?format=xml?key={api_key}` 
     *USAGE*: *Book ID can be found in previous call*
 
-4) **groupsByName** calls `https://www.goodreads.com/group/search.xml?key={api_key}&q={search_query}`. 
-    *USAGE*: *Group names have dashes as delimeter like goodreads-librarians-group. However, just type "goodreads librarians group"*
+4) **groupsByName** calls `https://www.goodreads.com/group/search.xml?key={api_key}&q={search_query}`. Returns an array of groups based on the Query string.   
+    *USAGE*: *Group names have dashes as delimeter like goodreads-librarians-group. However, just type "goodreads librarians group" as the search query*
 
+5) **groupData**
+    *NOTE*: 
+        A lot of the nested `author` objects have values like this: `user_id: { type: 'integer', nil: true }`. These, I just return `null`
