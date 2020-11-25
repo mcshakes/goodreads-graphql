@@ -134,9 +134,9 @@ class GoodReadsAPI extends RESTDataSource {
         let groupObj = newJSON.GoodreadsResponse.group
 
         console.log("")
-        console.log("CURENT READING ", groupObj.currently_reading.group_book)
-        console.log("")
-        console.log("GROUP BOOK ", groupObj.currently_reading.group_book.book)
+        // console.log("CURENT READING ", groupObj.currently_reading.group_book)
+        // console.log("")
+        // console.log("GROUP BOOK ", groupObj.currently_reading.group_book.book)
         console.log("")
 
 
@@ -172,6 +172,27 @@ class GoodReadsAPI extends RESTDataSource {
                     updated_at: folder.updated_at
                 }
             }),
+
+            currently_reading: groupObj.currently_reading.group_book.map(g_book => {
+                console.log(g_book.book)
+                return {
+                    id: g_book.id.$t,
+                    updated_at: g_book.updated_at.$t,
+                    start_reading_at: g_book.start_reading_at.$t,
+                    finish_reading_at: g_book.finish_reading_at.$t,
+                    book: {
+                        id: g_book.book.id.$t,
+                        title: g_book.book.title,
+                        publication_year: g_book.book.publication_year.$t,
+                        author: {
+                            id: g_book.book.author.id.$t,
+                            name: g_book.book.author.name,
+                            user_id: g_book.book.author.user_id.$t
+                        }
+
+                    }
+                }
+            })
 
             
         }

@@ -34,6 +34,19 @@ const typeDefs = gql`
         groupData(id: ID): GroupData!
     }
 
+    type AuthorShort {
+        id: ID,
+        name: String,
+        user_id: String
+    }
+
+    type BookShort {
+        id: ID!
+        title: String,
+        publication_year: String,
+        author: AuthorShort
+    }
+
     type Book {
         id: ID!
         isbn: String
@@ -72,8 +85,8 @@ const typeDefs = gql`
         id: ID!,
         updated_at: String,
         started_reading_at: String,
-        finish_reading_at: String,
-        book: 
+        finish_reading_at: String
+        book: BookShort
     }
 
     type GroupData {
@@ -98,7 +111,7 @@ const typeDefs = gql`
         last_activity_at: String,
         display_folder_count: String,
         folders: [Folder],
-        currently_reading: GroupBook
+        currently_reading: [GroupBook]
     }
 `
 
