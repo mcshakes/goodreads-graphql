@@ -1,10 +1,22 @@
-# good_wrap
-A GraphQL wrapper for the Goodreads API
+# goodreads-graphql
 
-Right now, it only features some read only queries to be used for looking up books and authors. Over time, I will add more queries and mutations as needed.
+Motivation: Trying to bring some semblance of order and usability to the Goodreads API by wrapping it with GraphQL and treating the original REST API as a datasource.
 
-Feel free to use alongside your Goodreads REST queries, and let me know any suggestions.
+Feel free to use it, fork it, or play with it alongside your Goodreads REST queries. Do let me know any suggestions to improve or problems that creep up.
 
-## Wiki below
+## Endpoints Available:
 
-[Wiki](https://github.com/mcshakes/good_wrap/wiki)
+1) **author** queries `https://www.goodreads.com/api/author_url/{author_name}?key={api_key}`
+
+2) **authorData** queries `https://www.goodreads.com/author/show/{author_id}?format=xml&?key={api_key}`. 
+    *USAGE*: *Get the Author ID from previous call*
+
+3) **bookData** calls `https://www.goodreads.com/book/show/{book_id}?format=xml?key={api_key}` 
+    *USAGE*: *Book ID can be found in previous call*
+
+4) **groupsByName** calls `https://www.goodreads.com/group/search.xml?key={api_key}&q={search_query}`. Returns an array of groups based on the Query string.   
+    *USAGE*: *Group names have dashes as delimeter like goodreads-librarians-group. However, just type "goodreads librarians group" as the search query*
+
+5) **groupData**
+    *NOTE*: 
+        A lot of the nested `author` objects have values like this: `user_id: { type: 'integer', nil: true }`. These, I just return `null`
