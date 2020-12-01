@@ -19,7 +19,6 @@ describe("[Query.author]", () => {
         const res = await resolvers.Query.author(null, { name: "Tom Clancy" }, mockContext);
         expect(res).toEqual({ id: 23, name: "Tom Clancy", link: "https://www.tom-clancy.com" });
 
-        // expect(getAuthorByName).toBeCalledWith({ })
     })
 })
 
