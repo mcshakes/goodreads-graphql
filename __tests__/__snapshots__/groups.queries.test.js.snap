@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Query.groupsByName] looks up groups by name 1`] = `
+Array [
+  Object {
+    "id": 220,
+    "name": "goodreads-librarians-group",
+    "users_count": 116716,
+  },
+]
+`;

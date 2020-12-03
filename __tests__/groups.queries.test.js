@@ -7,7 +7,7 @@ describe("[Query.groupsByName]", () => {
         }
     };
 
-    it("calls lookup from goodreads API", async () => {
+    it("looks up groups by name", async () => {
         const getGroupsByName = mockContext.dataSources.goodreadsAPI.getGroupsByName;
 
         getGroupsByName.mockReturnValueOnce([
@@ -30,5 +30,6 @@ describe("[Query.groupsByName]", () => {
         ]
 
         expect(res).toEqual(responseObj);
+        expect(res).toMatchSnapshot();
     })
 })

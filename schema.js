@@ -53,13 +53,15 @@ const typeDefs = gql`
         title: String
         num_pages: String
         description: String
-        published: String
         publisher: String
         average_rating: String
         ratings_count: String
         text_reviews_count: String
         is_ebook: Boolean
+        publication_year: String
         language_code: String
+        image_url: String
+        small_image_url: String
         similar_books: [Book]
     }
 
