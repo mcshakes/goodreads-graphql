@@ -78,17 +78,28 @@ class GoodReadsAPI extends RESTDataSource {
             return final
         })
 
+        console.log("HEY THERE", theBook)
         return {
-            book: theBook,
-
+            id: theBook.id,
+            title: theBook.title,
+            isbn: theBook.isbn,
+            num_pages: theBook.num_pages,
+            description: theBook.description,
+            published: theBook.published,
+            publisher: theBook.publisher,
+            average_rating: theBook.average_rating,
+            ratings_count: theBook.ratings_count,
+            text_reviews_count: theBook.text_reviews_count,
+            is_ebook: theBook.is_ebook,
+            language_code: theBook.language_code,
             similar_books: finalArr.map(book => {
                 return book
             })
         }
     }
 
-    //  Books a User has Read TODO
-    
+    //  Books a User has Read TODO    
+
 
     // Returns a list of Groups according to search query
     // Search Query must look like: goodreads-librarians-group
