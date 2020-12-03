@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Query.author] calls lookup from goodreads API 1`] = `
+Object {
+  "id": 23,
+  "link": "https://www.tom-clancy.com",
+  "name": "Tom Clancy",
+}
+`;
+
+exports[`[Query.authorData] looks up full author data based on ID 1`] = `
+Object {
+  "author": Object {
+    "name": "Bilbo Blaggins",
+  },
+  "books": Array [
+    Object {
+      "id": "1234",
+      "isbn": "04563112",
+      "title": "A Ring Too Far",
+    },
+    Object {
+      "id": "1234",
+      "isbn": "04563112",
+      "title": "A Ring Too Far",
+    },
+  ],
+  "hometown": "Somewhere, Alabama",
+}
+`;
